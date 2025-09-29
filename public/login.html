@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<title>Login - Museu</title>
+<style>
+    :root {
+        --primary: #2c3e50;
+        --secondary: #000000;
+        --accent: #f39c12;
+        --danger: #e74c3c;
+        --success: #27ae60;
+        --light: #f7f9fc;
+        --border: #ddd;
+    }
+
+    body {
+        font-family: 'Segoe UI', Arial, sans-serif;
+        background: var(--light);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        height: 100vh;
+        margin: 0;
+    }
+
+    .logo-title {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+    .logo-title img {
+        height: 80px;
+        margin-bottom: 10px;
+    }
+    .logo-title h1 {
+        margin: 0;
+        font-size: 24px;
+        color: var(--secondary);
+    }
+
+    .login-box {
+        background: #fff;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 6px 20px rgb(0, 0, 0);
+        width: 320px;
+        text-align: center;
+    }
+
+    h2 {
+        margin-bottom: 20px;
+        color: var(--primary);
+    }
+
+    input[type="text"], input[type="password"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border-radius: 6px;
+        border: 1px solid var(--border);
+        box-sizing: border-box;
+        transition: border 0.2s;
+    }
+
+    input[type="text"]:focus, input[type="password"]:focus {
+        border-color: var(--secondary);
+        outline: none;
+    }
+
+    button {
+        width: 100%;
+        padding: 10px;
+        background: linear-gradient(135deg, var(--secondary), #2980b9);
+        color: #fff;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: background 0.3s, transform 0.1s;
+    }
+
+    button:hover {
+        background: linear-gradient(135deg, #2980b9, #2471a3);
+        transform: translateY(-1px);
+    }
+
+    .error {
+        color: var(--danger);
+        margin-top: 10px;
+        font-size: 14px;
+    }
+
+    @media (max-width: 400px) {
+        .login-box {
+            width: 90%;
+            padding: 20px;
+        }
+        .logo-title img {
+            height: 60px;
+        }
+        .logo-title h1 {
+            font-size: 20px;
+        }
+    }
+</style>
+</head>
+<body>
+
+<div class="logo-title">
+    <img src="imagens/logomuseu.png" alt="Museu">
+    <h1>Gestor de QR Codes</h1>
+</div>
+
+<div class="login-box">
+    <h2>Credenciais de Acesso</h2>
+    <form id="login-form">
+        <input type="text" id="username" placeholder="Utilizador" required>
+        <input type="password" id="password" placeholder="Password" required>
+        <button type="submit">Entrar</button>
+    </form>
+    <div class="error" id="error-msg"></div>
+</div>
+
+<script src="login.js"></script>
+</body>
+</html>

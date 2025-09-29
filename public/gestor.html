@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<title>Painel Admin - Gestor de QR Codes</title>
+<style>
+    :root {
+        --primary: #2c3e50;
+        --secondary: #3498db;
+        --accent: #f39c12;
+        --danger: #e74c3c;
+        --success: #27ae60;
+        --light: #f7f9fc;
+        --border: #ddd;
+    }
+
+    body {
+        font-family: 'Segoe UI', Arial, sans-serif;
+        background: var(--light);
+        color: #333;
+        margin: 0;
+        padding: 0;
+    }
+
+    .container {
+        margin: 30px auto;
+        max-width: 1100px;
+        width: 95%;
+    }
+
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: var(--primary);
+        color: #fff;
+        padding: 20px;
+        flex-wrap: wrap;
+        border-radius: 12px 12px 0 0;
+    }
+
+    .header img {
+        height: 50px;
+        object-fit: contain;
+    }
+
+    .card {
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+        overflow: hidden;
+        margin: 20px 0 0 0;
+    }
+
+    table { 
+        width: 100%; 
+        border-collapse: collapse; 
+    }
+    th, td { 
+        padding: 14px; 
+        border-bottom: 1px solid #ddd; 
+        text-align: left; 
+    }
+    th { 
+        background: #34495e; 
+        color: white; 
+    }
+
+    button { 
+        padding: 8px 16px; 
+        border: none; 
+        border-radius: 6px; 
+        cursor: pointer; 
+        font-weight: bold; 
+        color: white; 
+        margin-right: 6px;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+    }
+    .edit-btn { 
+        background: linear-gradient(135deg, #3498db, #2980b9); 
+    }
+    .download-btn { 
+        background: linear-gradient(135deg, #2ecc71, #27ae60); 
+    }
+
+    button:hover {
+        opacity: 0.9;
+        transform: translateY(-2px);
+        transition: 0.2s;
+    }
+
+    @media (max-width: 768px) {
+        .header { 
+            flex-direction: column; 
+            text-align: center; 
+        }
+        th, td {
+            font-size: 14px;
+            padding: 10px;
+        }
+        button {
+            margin-top: 5px;
+            width: 100%;
+            justify-content: center;
+        }
+    }
+
+    /* Nome clicável */
+    td.qr-name {
+        cursor: pointer;
+        color: var(--secondary);
+        text-decoration: underline;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <img src="imagens/logomuseu.png" alt="Logo do Museu">
+        <div>Gestor de QR Codes</div>
+    </div>
+
+    <div class="card">
+        <table>
+            <thead>
+                <tr><th>Nome</th><th>Ações</th></tr>
+            </thead>
+            <tbody id="qrcodes-table"></tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+function carregarQRCodes() {
+    fetch("/api/qrcodes")
+    .then(res => res.json())
+    .then(data => {
+        const tbody = document.getElementById("qrcodes-table");
+        tbody.innerHTML = "";
+
+        data.qrCodes.forEach(qr => {
+            const tr = document.createElement("tr");
+
+            // Nome clicável
+            const nomeTd = document.createElement("td");
+            nomeTd.textContent = qr.descricao || `QR Code ${qr.id}`;
+            nomeTd.className = "qr-name";
+            nomeTd.onclick = () => window.location.href = `index.html?id=${qr.id}`;
+            tr.appendChild(nomeTd);
+
+            // Ações
+            const acoesTd = document.createElement("td");
+
+            const editBtn = document.createElement("button");
+            editBtn.innerHTML = "✏️ Editar";
+            editBtn.className = "edit-btn";
+            editBtn.onclick = () => window.location.href = `index.html?id=${qr.id}`;
+
+            const downloadBtn = document.createElement("button");
+            downloadBtn.innerHTML = "⬇️ Download QR";
+            downloadBtn.className = "download-btn";
+            downloadBtn.onclick = () => window.open(`/api/qrcodes/${qr.id}/download`);
+
+            acoesTd.appendChild(editBtn);
+            acoesTd.appendChild(downloadBtn);
+            tr.appendChild(acoesTd);
+
+            tbody.appendChild(tr);
+        });
+    })
+    .catch(err => {
+        console.error(err);
+        document.getElementById("qrcodes-table").innerHTML = '<tr><td colspan="2">Erro ao carregar QR Codes</td></tr>';
+    });
+}
+
+carregarQRCodes();
+</script>
+</body>
+</html>
