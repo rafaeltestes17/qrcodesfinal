@@ -1,7 +1,25 @@
 {
   "1": {
     "descricao": "Sala 1 Uma vida de trabalho ",
-    "arquivos": [],
+    "arquivos": [
+      {
+        "tipo": "video",
+        "url": "/uploads/1759153429726-660251476-video10secRafa.mp4",
+        "nome": "video",
+        "descricao": "Exemplo descrição de video 1 que foi criado pelo Rafael Exemplo descrição de video 1 que foi criado pelo RafaelExemplo descrição de video 1 que foi criado pelo RafaelExemplo descrição de video 1 que foi criado pelo RafaelExemplo descrição de video 1 que foi criado pelo Rafael"
+      },
+      {
+        "tipo": "audio",
+        "url": "/uploads/1759153446504-929912860-Bold Statement 15 sec, David Fesliyan Royalty free music, no copyright.mp3",
+        "nome": "audio",
+        "descricao": "exemplo descrivao de audio"
+      },
+      {
+        "tipo": "pdf",
+        "url": "/uploads/1759153465821-909918152-correcoes.pdf",
+        "nome": "correcoes pdf"
+      }
+    ],
     "qrImage": ""
   },
   "2": {
